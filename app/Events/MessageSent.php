@@ -12,28 +12,28 @@ use Illuminate\Queue\SerializesModels;
 
 class MessageSent implements ShouldBroadcast
 {
-    use Dispatchable;
-    use InteractsWithSockets;
-    use SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
     public function __construct(
         public string $name,
-        public string $message
-    ) 
+        public string $text
+    )
     {
-
+        //
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel
+     * @return Illuminate\Broadcasting\Channel
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('messages');
+        return new PrivateChannel('messages');
+
+        // room implementation:  return new PrivateChannel('messages.rooms.{id}');
     }
 }

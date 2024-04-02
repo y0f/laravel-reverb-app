@@ -1,6 +1,9 @@
 <?php
+
 use App\Events\MessageSent;
+use Livewire\Attributes\On;
 use Livewire\Volt\Component;
+
 new class extends Component
 {
     /**
@@ -8,14 +11,23 @@ new class extends Component
      */
     public array $messages = [];
     public string $message = '';
+    // public Room $room; 
+
     public function addMessage()
     {
         MessageSent::dispatch(auth()->user()->name, $this->message);
+
         $this->reset('message');
     }
+
+    //  Example with specific room
+    //  [On('echo-private:messages.rooms.{room.id},MessageSent')]
+
+    #[On('echo-private:messages,MessageSent')]
     public function onMessageSent($event)
     {
-        dd($event);
+        // dd($event);
+        $this->messages[] = $event;
     }
 }
 ?>
@@ -34,7 +46,7 @@ new class extends Component
         <div class="w-full h-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded overflow-auto flex flex-col px-2 py-4">
             <div x-ref="chatBox" class="flex-1 p-4 text-sm flex flex-col gap-y-1">
                 @foreach($messages as $message)
-                    <div><span class="text-indigo-600">{{ $message['name'] }}:</span> <span class="dark:text-white">{{ $message['message'] }}</span></div>
+                    <div><span class="text-indigo-600">{{ $message['name'] }}:</span> <span class="dark:text-white">{{ $message['text'] }}</span></div>
                 @endforeach
             </div>
             <div>

@@ -32,12 +32,12 @@ class SendChatCommand extends Command
             label: 'whats ur fookin name?',
             required: true
         );
-        $message = text(
+        $text = text(
             label: 'whats ur fookin message?',
             required: true
         );
 
-        MessageSent::dispatch($name, $message);
+        MessageSent::dispatch($name, $text);
 
     }
 }
