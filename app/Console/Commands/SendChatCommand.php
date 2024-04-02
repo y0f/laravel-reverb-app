@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Events\ChatSent;
+use App\Events\MessageSent;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\text;
@@ -37,7 +37,7 @@ class SendChatCommand extends Command
             required: true
         );
 
-        ChatSent::dispatch($name, $message);
+        MessageSent::dispatch($name, $message);
 
     }
 }

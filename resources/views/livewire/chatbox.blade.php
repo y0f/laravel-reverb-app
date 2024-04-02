@@ -1,5 +1,5 @@
 <?php
-use App\Events\ChatSent;
+use App\Events\MessageSent;
 use Livewire\Volt\Component;
 new class extends Component
 {
@@ -10,14 +10,9 @@ new class extends Component
     public string $message = '';
     public function addMessage()
     {
-        logger('Adding message: ' . $this->message);
-        // dd($this->message); 
-        ChatSent::dispatch(auth()->user()->name, $this->message);
-        // dd('Event dispatched');
+        MessageSent::dispatch(auth()->user()->name, $this->message);
         $this->reset('message');
     }
-
-    #[On('echo:chats, ChatSent')]
     public function onMessageSent($event)
     {
         dd($event);

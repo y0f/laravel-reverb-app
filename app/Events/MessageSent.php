@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChatSent implements ShouldBroadcast
+class MessageSent implements ShouldBroadcast
 {
     use Dispatchable;
     use InteractsWithSockets;
@@ -34,6 +34,6 @@ class ChatSent implements ShouldBroadcast
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('chats');
+        return new Channel('messages');
     }
 }
